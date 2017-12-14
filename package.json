@@ -1,0 +1,62 @@
+{
+  "name": "js_starter_kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odinath/jsStarterKit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odinath/jsStarterKit/issues"
+  },
+  "homepage": "https://github.com/odinath/jsStarterKit#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.13.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-watch": "^3.1.3",
+    "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^2.30.1",
+    "jsdom": "^11.5.1",
+    "json-schema-faker": "^0.4.6",
+    "json-server": "^0.12.1",
+    "mocha": "^4.0.1",
+    "npm-run-all": "^4.1.2",
+    "numeral": "^2.0.6",
+    "open": "0.0.5",
+    "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
+    "webpack": "^3.10.0",
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-md5-hash": "0.0.6",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "scripts": {
+    "clean:dist": "rimraf ./dist && mkdir dist",
+    "build": "babel-node build/scripts/build.js",
+    "prebuild": "npm-run-all clean:dist test lint",
+    "postbuild": "babel-node build/scripts/distServer.js",
+    "devserver": "babel-node build/scripts/devServer.js",
+    "lint": "esw webpack.config.* src build/scripts --color",
+    "lint:watch": "npm run lint -- --watch",
+    "localtunnel": "lt --port=3000 --subdomain=odin",
+    "mockdata": "json-server --watch data/mockData.json --port 3001",
+    "premockdata": "babel-node build/scripts/mockDataGenerator",
+    "securitycheck": "nsp check",
+    "share": "npm-run-all --parallel devserver localtunnel",
+    "start": "npm-run-all --parallel securitycheck mockdata share lint:watch test:watch",
+    "prestart": "babel-node build/scripts/startMessage.js",
+    "test": "mocha --reporter progress build/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
+  }
+}
